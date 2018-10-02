@@ -21,30 +21,34 @@ public class SudokuSolver
                 {
                     for (int num = 1; num <= 9; num++)
                     {
-                        grid[row][col] = num;
+                        if (isSafe(grid, row, col, num))
+                        {
+                            grid[row][col] = num;
+                            if (solveSudoku(grid))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                grid[row][col] = 0;
+                            }
+                        }
                     }
-                    if (solveSudoku(grid))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        grid[row][col] = 0;
-                    }
+                    return false;
                 }
             }
         }
         return true;
     }
     
-    public boolean isSafe(int grid[][], int row, int col, int num)
+    public static boolean isSafe(int grid[][], int row, int col, int num)
     {
         return isNotUsedInRow(grid, row, num) 
                && isNotUsedInCol(grid, col, num) 
                 && isNotUsedInBox(grid, row - row%3, col - col%3, num);
     }
     
-    private boolean isNotUsedInRow(int grid[][], int row, int num)
+    private static boolean isNotUsedInRow(int grid[][], int row, int num)
     {
         for (int i = 0; i < 9; i++)
         {
@@ -57,7 +61,7 @@ public class SudokuSolver
         return true;
     }
     
-    private boolean isNotUsedInCol(int grid[][], int col, int num)
+    private static boolean isNotUsedInCol(int grid[][], int col, int num)
     {
         for (int i = 0; i < 9; i++)
         {
@@ -69,7 +73,7 @@ public class SudokuSolver
         return true;
     }
     
-    private boolean isNotUsedInBox(int grid[][], int startRow, int startCol, int num)
+    private static boolean isNotUsedInBox(int grid[][], int startRow, int startCol, int num)
     {
         for(int i = 0; i < 3; i++)
         {
@@ -82,5 +86,30 @@ public class SudokuSolver
             }
         }
         return true;
+    }
+    
+    public static void main(String[] args)
+    {
+        int grid[][] = {
+                        {9,0,0,1,0,0,0,0,5},
+			{0,0,5,0,9,0,2,0,1},
+			{8,0,0,0,4,0,0,0,0},
+			{0,0,0,0,8,0,0,0,0},
+			{0,0,0,7,0,0,0,0,0},
+			{0,0,0,0,2,6,0,0,9},
+			{2,0,0,3,0,0,0,0,6},
+			{0,0,0,2,0,0,9,0,0},
+			{0,0,1,9,0,4,5,7,0},
+                     };
+        
+        solveSudoku(grid);
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                System.out.print(grid[i][j]+ " ");
+            }
+            System.out.println("");
+        }
     }
 }
