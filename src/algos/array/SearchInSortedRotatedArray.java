@@ -34,7 +34,7 @@ public class SearchInSortedRotatedArray
                 return search(a, mid+1, h, element);
             }
         }
-        if (element >=a[mid+1] && element <=a[h])
+        if (element >= a[mid+1] && element <=a[h])
         {
             return search(a, mid+1, h, element);
         }
