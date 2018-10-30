@@ -23,7 +23,7 @@ public class AttachTreePeers
     public void attachTreePeers(NodePeer root)
     {
         NodePeer childRef = null,
-             child = null;
+                 child = null;
         
         while (root != null)
         {
